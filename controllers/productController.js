@@ -24,6 +24,10 @@ const addProduct = async(req,res) => {
 
         const firm = await Firm.findById(firmId);
         
+        if (!firmId) {
+            return res.status(400).json({ error: 'firmId is required' });
+        }
+
         if(!firm) {
             return res.status(404).json({error: "No firm found"});
         }
