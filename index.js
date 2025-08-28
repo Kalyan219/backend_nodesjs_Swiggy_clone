@@ -18,6 +18,7 @@ dotEnv.config();
 app.use(cors({
   origin: "https://swiggy-clone-vendor-dashboard-zql5.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "token"], // allow necessary headers
   credentials: true
 }));
 
