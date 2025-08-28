@@ -21,9 +21,8 @@ app.use(cors({
   credentials: true
 }));
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("mongoDb connected Successfully"))
-.catch((error) => console.log(error))
+//  Handle OPTIONS preflight globally
+app.options("*", cors());
 
 app.use(bodyParser.json());
 app.use('/vendor', vendorRoutes);
@@ -31,10 +30,15 @@ app.use('/firm', firmRoutes);
 app.use('/product', productRoutes);
 app.use('/uploads', express.static('uploads'))
 
+app.use('/', (req,res) => {
+    res.send("<h1> Welcome to FODDIE"); 
+})
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("mongoDb connected Successfully"))
+.catch((error) => console.log(error))
+
 app.listen(PORT, () => {
     console.log(`server started and running at ${PORT}`);
 })
 
-app.use('/', (req,res) => {
-    res.send("<h1> Welcome to FODDIE"); 
-})
